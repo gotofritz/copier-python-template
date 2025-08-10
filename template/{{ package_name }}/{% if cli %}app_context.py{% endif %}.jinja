@@ -1,0 +1,11 @@
+from {{ package_name }} import __app_name__
+from {{ package_name }}.config.app_config import {{ class_name }}Config
+from {{ package_name }}.logging.logging import setup_logger
+
+
+class AppContext:
+    """Holds all the objects needed by commands"""
+
+    def __init__(self) -> None:
+        self.app_config = {{ class_name }}Config(app_name=__app_name__)
+        self.logger = setup_logger(log_level=self.app_config.log_level, app_name=__app_name__)

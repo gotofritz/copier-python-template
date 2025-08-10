@@ -1,0 +1,84 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "python-template"
+version = "1.0.0"
+description = ""
+authors = [{name = "gotofritz", email = "gotofritz@users.noreply.github.com"}]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+  "copier>=9.4.1,<10"
+]
+
+[project.urls]
+homepage = "https://github.com/gotofritz/copier-python-template"
+source = "https://github.com/gotofritz/copier-python-template"
+documentation = "https://github.com/gotofritz/copier-python-template"
+issues = "https://github.com/gotofritz/copier-python-template/issues"
+
+[dependency-groups]
+dev = [
+  "commitizen>=4.4.1,<5",
+  "go-task-bin>=3.44.1,<4",
+  "jinja2~=3.1",
+  "mypy>=1.11.0,<2",
+  "pre-commit>=4.0.0,<5",
+  "pytest>=8.1.1,<9",
+  "pytest-cov>=6.0.0,<7",
+  "ruff>=0.11.0,<0.12",
+  "toml-sort>=0.24.2,<0.25"
+]
+
+[tool.uv]
+package = false
+required-version = ">=0.8.4"
+
+[tool.mypy]
+exclude = [
+    "template/",
+]
+strict = true
+
+[tool.commitizen]
+bump_message = "bump(release): v$current_version → v$new_version"
+tag_format = "v$version"
+update_changelog_on_bump = true
+version_provider = "pep621"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+  "--cov=.",
+  "--cov-report=term",
+  "--cov-report=html:coverage/html",
+  "--cov-report=xml:coverage/coverage.xml",
+  "--junitxml=coverage/junit/test-results.xml",
+  "--color=yes"
+]
+
+[tool.tomlsort]
+all = false
+in_place = true
+no_comments = false
+no_header_comments = false
+no_footer_comments = false
+no_inline_comments = false
+no_block_comments = false
+no_sort_tables = true
+sort_table_keys = false
+sort_inline_tables = false
+sort_inline_arrays = false
+trailing_comma_inline_array = false
+ignore_case = true
+
+[tool.tomlsort.overrides."dependencies"]
+table_keys = true
+
+[tool.tomlsort.overrides."dev"]
+table_keys = true
+
+[tool.tomlsort.overrides."typing"]
+table_keys = true

@@ -1,0 +1,25 @@
+import logging
+from typing import Generator
+from unittest.mock import Mock, patch
+
+import pytest
+from click.testing import CliRunner
+
+
+@pytest.fixture
+def cli_runner() -> CliRunner:
+    """Fixture providing a Click CLI test runner"""
+    return CliRunner(env={})
+
+
+@pytest.fixture
+def mock_logger() -> logging.Logger:
+    """Fixture providing a test logger"""
+    return Mock(spec=logging.Logger)
+
+
+@pytest.fixture
+def cli_env(mock_logger: logging.Logger) -> Generator[None, None, None]:
+    """Fixture that patches client creation and logger setup"""
+    with patch("{{ package_name }}.app_context.setup_logger", return_value=mock_logger):
+        yield

@@ -1,0 +1,61 @@
+project_name:
+  type: str
+  help: What is your project name?
+  validator: >-
+    {% if not (project_name | regex_search('^[a-zA-Z_][a-zA-Z0-9\-_]*$')) %}
+    project_name must start with a letter, followed by one or more letters, digits, dashes or underscores.
+    {% endif %}
+
+org_name:
+  type: str
+  help: What is your org?
+  default: gotofritz
+  validator: >-
+    {% if not (org_name | regex_search('^[a-zA-Z_][a-zA-Z0-9\-_]*$')) %}
+    org must start with a letter, followed by one or more letters, digits, dashes or underscores.
+    {% endif %}
+
+package_name:
+  type: str
+  help: What is your Python package name? Can be the same as your project's name.
+  default: "{{ project_name|lower|replace(' ', '_')|replace('-', '_') }}"
+  validator: >-
+    {% if not (package_name | regex_search('^[a-zA-Z_][a-zA-Z0-9_]*')) %}
+    package_name must start with a letter, followed by one or more letters, digits or underscores.
+    {% endif %}
+
+project_description:
+  type: str
+  default: "A Python package"
+
+project_url:
+  type: str
+  default: "https://github.com/{{ org_name }}/{{ project_name }}"
+
+author_name:
+  type: str
+  default: gotofritz
+
+author_email:
+  type: str
+  default: gotofritz@users.noreply.github.com
+
+python_version:
+  type: str
+  default: "3.13"
+
+with_conventional_commits:
+  type: bool
+  default: true
+
+class_name:
+  type: str
+  default: "{{ project_name | title | replace('-', '') }}"
+  when: false
+
+cli:
+  type: bool
+  default: true
+  help: Do you want to include a CLI entrypoint?
+
+_subdirectory: template

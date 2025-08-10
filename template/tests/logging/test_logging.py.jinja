@@ -1,0 +1,109 @@
+import logging
+from io import StringIO
+from unittest.mock import Mock, patch
+
+import pytest
+from faker import Faker
+
+from {{ package_name }}.logging.logging import setup_logger
+
+
+@pytest.fixture
+def mock_logger() -> logging.Logger:
+    """Create a mock logger for testing."""
+    return Mock(spec=logging.Logger)
+
+
+@pytest.fixture
+def mock_logger_manager(mock_logger: logging.Logger) -> Mock:
+    """Create a mock logger manager with configured loggers."""
+    manager = Mock()
+    manager.loggerDict = {
+        "uvicorn": mock_logger,
+        "uvicorn.error": mock_logger,
+        "fastapi": mock_logger,
+    }
+    return manager
+
+
+@patch("sys.stdout", new_callable=StringIO)
+def test_setup_logger_debug_level(mock_stdout: StringIO, faker: Faker) -> None:
+    """Log debug message"""
+    logger = setup_logger(app_name=faker.word(), log_level="DEBUG")
+    logger.debug("This is a debug message")
+
+    output = mock_stdout.getvalue().strip()
+    assert "DEBUG" in output
+    assert "This is a debug message" in output
+
+
+@patch("sys.stdout", new_callable=StringIO)
+def test_setup_logger_info_level(mock_stdout: StringIO, faker: Faker) -> None:
+    """Log info message"""
+    logger = setup_logger(app_name=faker.word(), log_level="INFO")
+    logger.info("This is an info message")
+
+    output = mock_stdout.getvalue().strip()
+    assert "INFO" in output
+    assert "This is an info message" in output
+
+
+@patch("sys.stdout", new_callable=StringIO)
+def test_setup_logger_warning_level(mock_stdout: StringIO, faker: Faker) -> None:
+    """Log warning message"""
+    logger = setup_logger(app_name=faker.word(), log_level="WARNING")
+    logger.warning("This is a warning message")
+
+    output = mock_stdout.getvalue().strip()
+    assert "WARNING" in output
+    assert "This is a warning message" in output
+
+
+@patch("sys.stdout", new_callable=StringIO)
+def test_setup_logger_error_level(mock_stdout: StringIO, faker: Faker) -> None:
+    """Log error message"""
+    logger = setup_logger(app_name=faker.word(), log_level="ERROR")
+    logger.error("This is an error message")
+
+    output = mock_stdout.getvalue().strip()
+    assert "ERROR" in output
+    assert "This is an error message" in output
+
+
+@patch("sys.stdout", new_callable=StringIO)
+def test_setup_logger_critical_level(mock_stdout: StringIO, faker: Faker) -> None:
+    """Log critical message"""
+    logger = setup_logger(app_name=faker.word(), log_level="CRITICAL")
+    logger.critical("This is a critical message")
+
+    output = mock_stdout.getvalue().strip()
+    assert "CRITICAL" in output
+    assert "This is a critical message" in output
+
+
+def test_invalid_log_level(faker: Faker) -> None:
+    """Handle invalid log level"""
+    invalid_level = faker.word()
+    with pytest.raises(
+        AttributeError,
+        match=f"module 'logging' has no attribute '{invalid_level.upper()}'",
+    ):
+        setup_logger(log_level=invalid_level, app_name=faker.word())
+
+
+def test_bind(faker: Faker) -> None:
+    """Bind to an existing logger"""
+    # Create a mock logger
+    mock_logger = Mock(spec=logging.Logger)
+
+    # Setup a new logger and bind the mock logger to it
+    logger = setup_logger(app_name=faker.word(), log_level="CRITICAL", bind_to=mock_logger)
+
+    # Verify the mock logger was called with the correct level
+    mock_logger.setLevel.assert_called_once_with("CRITICAL")
+
+    # Verify the handlers were copied from the new logger to the mock logger
+    assert mock_logger.handlers == logger.handlers
+
+    # Verify the handlers are not empty (should have console handler)
+    assert len(mock_logger.handlers) > 0

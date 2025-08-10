@@ -1,0 +1,32 @@
+from datetime import datetime
+from typing import Optional
+
+import click
+
+from {{ package_name }}.app_context import AppContext
+
+
+@click.command(name="simple-command")
+@click.argument("some_argument", type=str)
+@click.option(
+    "--some-option",
+    type=click.DateTime(formats=["%Y-%m-%d"]),
+    help="Some option",
+)
+@click.pass_context
+def simple_command(
+    ctx: click.Context,
+    some_option: Optional[datetime] = None,
+    some_argument: Optional[str] = "default_value",
+) -> None:
+    """
+    This is a simple command.
+    """
+    try:
+        app_context: AppContext = ctx.obj
+        click.echo(
+            f"simple-command: {app_context.app_config.app_name} {some_option} {some_argument}"
+        )
+    except Exception as e:
+        click.echo(f"CLI Error: {str(e)}")
+        ctx.exit(1)

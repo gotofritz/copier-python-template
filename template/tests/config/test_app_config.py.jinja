@@ -1,0 +1,7 @@
+from {{ package_name }}.config.app_config import {{ class_name }}Config
+
+
+def test_settings() -> None:
+    settings = {{ class_name }}Config()
+    assert settings.app_name == "{{ project_name }}"
+    assert settings.log_level in ["INFO", "DEBUG"]
