@@ -1,0 +1,30 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "{{ project_name }} simple-command",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "{{ package_name }}.cli.__main__",
+      "args": ["simple-command", "hello world"],
+      "justMyCode": false
+    },
+    {
+      "name": "{{ project_name }} sub sub",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "{{ package_name }}.cli.__main__",
+      "args": [
+        "subcommand",
+        "subsub",
+        "--some-option",
+        "2020-04-12",
+        "goodbye world"
+      ],
+      "justMyCode": false
+    }
+  ]
+}

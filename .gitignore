@@ -63,5 +63,6 @@ __pycache__/
 .terraform/
 
 # VS Code
-.vscode/
-!.vscode/launch.json
+/.vscode/*
+!template/.vscode/
+!template/.vscode/launch.json.jinja
