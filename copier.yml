@@ -59,3 +59,5 @@ cli:
   help: Do you want to include a CLI entrypoint?
 
 _subdirectory: template
+_jinja_extensions:
+  - jinja2_time.TimeExtension
