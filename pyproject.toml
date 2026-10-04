@@ -22,25 +22,25 @@ issues = "https://github.com/gotofritz/copier-python-template/issues"
 [dependency-groups]
 dev = [
   "commitizen>=4.4.1,<5",
-  "go-task-bin>=3.44.1,<4",
   "jinja2~=3.1",
-  "mypy>=1.11.0,<2",
+  "poethepoet>=0.37,<1",
   "pre-commit>=4.0.0,<5",
   "pytest>=9",
   "pytest-cov>=6.0.0,<7",
-  "ruff>=0.11.0,<0.12",
+  "ruff>=0.14,<1",
   "toml-sort>=0.24.2,<0.25",
+  "ty>=0.0.1",
 ]
 
 [tool.uv]
 package = false
 required-version = ">=0.8.4"
 
-[tool.mypy]
-exclude = [
-    "template/",
-]
-strict = true
+[tool.poe]
+include = [".poe.toml"]
+
+[tool.ty.src]
+exclude = ["template/"]
 
 [tool.commitizen]
 bump_message = "bump(release): v$current_version → v$new_version"

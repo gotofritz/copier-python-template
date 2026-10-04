@@ -5,9 +5,9 @@ A modern [Copier](https://github.com/copier-org/copier) template for scaffolding
 ## 🎁 Features
 
 - 📦 **Modern Python packaging** using [UV](https://github.com/astral-sh/uv) for lightning-fast dependency management
-- ⚡️ **Streamlined task execution** with [Task](https://taskfile.dev/)
+- ⚡️ **Streamlined task execution** with [poethepoet](https://poethepoet.natn.io/)
 - ✍️ **Code formatting and linting** with [Ruff](https://github.com/charliermarsh/ruff)
-- 🔍 **Type checking** with [Mypy](https://github.com/python/mypy)
+- 🔍 **Type checking** with [ty](https://docs.astral.sh/ty/)
 - 🛡️ **Quality gates** with [Pre-commit](https://pre-commit.com/) hooks
 - 🏷️ **Automated versioning** following [Conventional Commits](https://www.conventionalcommits.org/) with [Commitizen](https://github.com/commitizen-tools/commitizen)
 - 📋 **Changelog generation** compatible with [Keep A Changelog](https://keepachangelog.com/)

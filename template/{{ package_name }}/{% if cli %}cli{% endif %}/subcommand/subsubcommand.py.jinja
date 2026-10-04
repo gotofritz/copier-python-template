@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 import click
 
@@ -16,17 +15,15 @@ from {{ package_name }}.app_context import AppContext
 @click.pass_context
 def subsubcommand(
     ctx: click.Context,
-    some_option: Optional[datetime] = None,
-    some_argument: Optional[str] = "default_value",
+    some_option: datetime | None = None,
+    some_argument: str | None = "default_value",
 ) -> None:
-    """
-    Hey dawg I heard you like commands inside commands
-    """
+    """Hey dawg I heard you like commands inside commands"""
     try:
         app_context: AppContext = ctx.obj
         click.echo(
             f"subcommand subsub: {app_context.app_config.app_name} {some_option} {some_argument}"
         )
-    except Exception as e:
-        click.echo(f"CLI Error: {str(e)}")
+    except Exception as e:  # noqa: BLE001
+        click.echo(f"CLI Error: {e!s}")
         ctx.exit(1)
