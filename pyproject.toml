@@ -22,6 +22,7 @@ issues = "https://github.com/gotofritz/copier-python-template/issues"
 [dependency-groups]
 dev = [
   "commitizen>=4.4.1,<5",
+  "jinja2-time>=0.2,<1",
   "jinja2~=3.1",
   "poethepoet>=0.37,<1",
   "pre-commit>=4.0.0,<5",

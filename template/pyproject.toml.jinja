@@ -7,17 +7,17 @@ name = "{{ project_name }}"
 version = "0.1.0"
 description = "{{ project_description }}"
 authors = [
-    { name = "{{ author_name }}", email = "{{ author_email }}" }
+  {name = "{{ author_name }}", email = "{{ author_email }}"}
 ]
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">={{ python_version }}"
 dependencies = [
   "pydantic>=2.10.6",
-  "pydantic-settings>=2.6.1",
-  {%- if cli %}
+  "pydantic-settings>=2.6.1"{% if cli %},
   "click>=8.1.7",
-  "rich>=14",
-  {%- endif %}
+  "rich>=14"{% endif %}
 ]
 
 [project.urls]
@@ -37,29 +37,30 @@ issues = "{{ project_url.rstrip('/') }}/issues"
 
 [dependency-groups]
 dev = [
-    "copier>=9.7.1,<10",
-    {%- if with_conventional_commits %}
-    "commitizen>=4.4.1,<5",
-    {%- endif %}
-    "faker>=30,<31",
-    "poethepoet>=0.37,<1",
-    "polyfactory>=2,<3",
-    "pre-commit>=4,<5",
-    "pytest>=9,<10",
-    "pytest-cov>=6,<7",
-    "pytest-datadir>=1,<2",
-    "pytest-env>=1,<2",
-    "ruff>=0.14,<1",
-    "safety>=3.2.9,<4",
-    "toml-sort>=0.24.2,<0.25",
-    "ty>=0.0.1",
+  "copier>=9.7.1,<10",
+  {%- if with_conventional_commits %}
+  "commitizen>=4.4.1,<5",
+  {%- endif %}
+  "faker>=30,<31",
+  "poethepoet>=0.37,<1",
+  "polyfactory>=2,<3",
+  "pre-commit>=4,<5",
+  "pytest>=9,<10",
+  "pytest-cov>=6,<7",
+  "pytest-datadir>=1,<2",
+  "pytest-env>=1,<2",
+  "ruff>=0.14,<1",
+  "safety>=3.2.9,<4",
+  "toml-sort>=0.24.2,<0.25",
+  "ty>=0.0.1"
 ]
 
 [tool.uv]
 required-version = ">=0.8.4"
 
 {%- if with_conventional_commits %}
-[tool.commitizen]  # https://commitizen-tools.github.io/commitizen/config/
+
+[tool.commitizen] # https://commitizen-tools.github.io/commitizen/config/
 bump_message = "bump(release): v$current_version → v$new_version"
 tag_format = "v$version"
 update_changelog_on_bump = true
@@ -72,23 +73,21 @@ include = [".poe.toml"]
 [tool.ty.environment]
 python-version = "{{ python_version }}"
 
-[tool.pytest.ini_options]  # https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref
+[tool.pytest.ini_options] # https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref
 pythonpath = [
-  ".", "{{ package_name }}",
+  ".",
+  "{{ package_name }}"
 ]
 testpaths = [
-    "tests",
+  "tests"
 ]
 addopts = [
-    "--cov={{ package_name }}/",
-    "--cov-report=term",
-    "--cov-report=html:coverage/html",
-    "--cov-report=xml:coverage/coverage.xml",
-    "--junitxml=coverage/junit/test-results.xml",
-    "--color=yes"{% if development_environment == 'strict' %},
-    "--strict-config",
-    "--strict-markers",
-    "--typeguard-packages={{ package_name }}"{% endif %}
+  "--cov={{ package_name }}/",
+  "--cov-report=term",
+  "--cov-report=html:coverage/html",
+  "--cov-report=xml:coverage/coverage.xml",
+  "--junitxml=coverage/junit/test-results.xml",
+  "--color=yes"
 ]
 
 [tool.pytest_env]
@@ -96,13 +95,13 @@ ENVIRONMENT = "test"
 
 [tool.coverage.run]
 omit = [
-    "tests/*",
-    "*/tests/*",
+  "tests/*",
+  "*/tests/*"
 ]
 
 [tool.coverage.report]
 exclude_also = [
-    "if TYPE_CHECKING:",
+  "if TYPE_CHECKING:"
 ]
 
 [tool.tomlsort]

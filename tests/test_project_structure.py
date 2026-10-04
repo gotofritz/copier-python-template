@@ -1,3 +1,4 @@
+from datetime import UTC, datetime
 from pathlib import Path
 
 from copier import run_copy
@@ -13,12 +14,16 @@ def test_defaults(root_path: str, tmp_path: Path, common_data: dict[str, str]) -
         vcs_ref="HEAD",
         defaults=True,
         skip_tasks=True,
+        unsafe=True,
     )
     assert (destination_path / "pyproject.toml").exists()
     assert (destination_path / "README.md").exists()
     assert (destination_path / "test_project").exists()
     assert (destination_path / "test_project" / "__init__.py").exists()
     assert (destination_path / ".pre-commit-config.yaml").exists()
+    license_text = (destination_path / "LICENSE").read_text()
+    assert license_text.startswith("MIT License")
+    assert f"Copyright (c) {datetime.now(tz=UTC).year} Gotofritz" in license_text
     assert (destination_path / "tests").exists()
 
     # assert settings.py exists
@@ -79,6 +84,7 @@ def test_without_conventional_commits(
         vcs_ref="HEAD",
         defaults=True,
         skip_tasks=True,
+        unsafe=True,
     )
 
     # Check pyproject.toml content for conventional commits disabled
@@ -108,6 +114,7 @@ def test_with_cli(root_path: str, tmp_path: Path, common_data: dict[str, str]) -
         vcs_ref="HEAD",
         defaults=True,
         skip_tasks=True,
+        unsafe=True,
     )
 
     assert (destination_path / "pyproject.toml").exists()

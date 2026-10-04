@@ -7,7 +7,7 @@
 
 ## 📋 Overview
 
- {{ project_name }} is a Python application/package that demonstrates modern Python development practices with fast dependency management, comprehensive testing, and automated quality checks.
+{{ project_name }} is a Python application/package that demonstrates modern Python development practices with fast dependency management, comprehensive testing, and automated quality checks.
 
 ## 🎁 Features
 
@@ -16,8 +16,10 @@
 - ✍️ **Code formatting and linting** with [Ruff](https://github.com/charliermarsh/ruff)
 - 🔍 **Type checking** with [ty](https://docs.astral.sh/ty/)
 - 🛡️ **Quality gates** with [Pre-commit](https://pre-commit.com/) hooks
+{%- if with_conventional_commits %}
 - 🏷️ **Automated versioning** following [Conventional Commits](https://www.conventionalcommits.org/) with [Commitizen](https://github.com/commitizen-tools/commitizen)
 - 📋 **Changelog generation** compatible with [Keep A Changelog](https://keepachangelog.com/)
+{%- endif %}
 - 🔄 **Continuous integration** with [GitHub Actions](https://docs.github.com/en/actions)
 - ✅ **Comprehensive testing** with pytest and coverage reporting
 
@@ -25,7 +27,7 @@
 
 ### Prerequisites
 
-- Python 3.13+
+- Python {{ python_version }}+
 - [UV](https://github.com/astral-sh/uv) installed globally
 
 ### Installation
@@ -34,7 +36,7 @@
 
    ```sh
    git clone https://github.com/{{ org_name }}/{{ project_name }}.git
-   cd  {{ project_name }}
+   cd {{ project_name }}
    ```
 
 2. **Install dependencies:**
@@ -55,10 +57,10 @@
 
 ### Development Setup
 
-1. **Install pre-commit hooks:**
+1. **Install pre-commit hooks** (checks run on commit; the full `poe qa` runs on push):
 
    ```sh
-   pre-commit install
+   uv run pre-commit install
    ```
 
 2. **Run the test suite:**
@@ -67,11 +69,13 @@
    poe test
    ```
 
-3. **Check code quality:**
+3. **Run linting and tests:**
 
    ```sh
    poe qa
    ```
+
+{%- if cli %}
 
 ## 🖥️ CLI Usage
 
@@ -103,6 +107,7 @@ Commands:
   simple-command  This is a simple command.
   subcommand      This contains sub-subcommands
 ```
+{%- endif %}
 
 ## 🛠️ Development
 
@@ -123,7 +128,7 @@ poe coverage
 # Format code with ruff
 poe lint-fix
 
-# Lint code
+# Run linting and tests
 poe qa
 
 # Run pre-commit on all files
@@ -134,12 +139,15 @@ uv run pre-commit run --all-files
 
 ```
 {{ project_name }}/
-├── {{ project_name }}/                  # Main package
+├── {{ package_name }}/      # Main package
+{%- if cli %}
 │   ├── cli/               # CLI commands
+{%- endif %}
 │   └── ...                # Other modules
 ├── tests/                 # Test suite
-├── pyproject.toml        # Project configuration
-└── README.md             # This file
+├── .github/workflows/     # CI
+├── pyproject.toml         # Project configuration
+└── README.md              # This file
 ```
 
 ### Making Changes
@@ -156,6 +164,8 @@ uv run pre-commit run --all-files
    uv run pytest
    ```
 
+{%- if with_conventional_commits %}
+
 3. **Commit using conventional commits:**
 
    ```sh
@@ -163,6 +173,12 @@ uv run pre-commit run --all-files
    ```
 
 4. **Push and create a pull request.**
+{%- else %}
+
+3. **Commit and push, then create a pull request.**
+{%- endif %}
+
+{%- if with_conventional_commits %}
 
 ### Versioning
 
@@ -174,6 +190,7 @@ To create a new release:
 uv run cz bump
 git push --follow-tags
 ```
+{%- endif %}
 
 ## 🧪 Testing
 
@@ -199,7 +216,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- **Homepage:** [https://github.com/{{ org_name }}/{{ project_name }}](https://github.com/{{ org_name }}/{{ project_name }})
-- **Documentation:** [https://github.com/{{ org_name }}/{{ project_name }}](https://github.com/{{ org_name }}/{{ project_name }})
-- **Issues:** [https://github.com/{{ org_name }}/{{ project_name }}/issues](https://github.com/{{ org_name }}/{{ project_name }}/issues)
+- **Homepage:** [{{ project_url }}]({{ project_url }})
+- **Documentation:** [{{ project_url }}]({{ project_url }})
+- **Issues:** [{{ project_url.rstrip('/') }}/issues]({{ project_url.rstrip('/') }}/issues)
+{%- if with_conventional_commits %}
 - **Changelog:** [CHANGELOG.md](CHANGELOG.md)
+{%- endif %}
