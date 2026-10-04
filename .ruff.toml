@@ -128,7 +128,7 @@ select = [
   # Enable Tryceratops
   "TRY",
   # Enforce : dict | None annotation instead of Optional[Dict]
-  "UP",
+  "UP"
 ]
 ignore = []
 # Allow fix for all enabled rules (when `--fix`) is provided.

@@ -1,8 +1,8 @@
 [tasks.lint-fix]
 help = "Fix linting issues and format code"
 sequence = [
-  { cmd = "ruff check --fix ." },
-  { cmd = "ruff format ." },
+  {cmd = "ruff check --fix ."},
+  {cmd = "ruff format ."}
 ]
 
 [tasks.ruff]
@@ -24,7 +24,7 @@ sequence = ["ruff", "ty"]
 [tasks.test]
 help = "Run tests with coverage"
 cmd = "pytest -vv --cov --cov-report=html:tests/coverage --cov-fail-under=95"
-args = [{ name = "paths", positional = true, multiple = true }]
+args = [{name = "paths", positional = true, multiple = true}]
 
 [tasks.qa]
 help = "Run linting and tests"

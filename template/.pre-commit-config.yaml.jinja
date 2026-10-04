@@ -20,6 +20,8 @@ repos:
       - id: check-added-large-files
       - id: check-case-conflict
       - id: check-json
+        # VS Code configs are JSONC (comments allowed)
+        exclude: ^\.vscode/
       - id: check-merge-conflict
       - id: check-shebang-scripts-are-executable
       - id: check-symlinks
