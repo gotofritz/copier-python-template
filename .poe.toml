@@ -1,0 +1,31 @@
+[tasks.lint-fix]
+help = "Fix linting issues and format code"
+sequence = [
+  { cmd = "ruff check --fix --exclude template ." },
+  { cmd = "ruff format --exclude template ." },
+]
+
+[tasks.ruff]
+help = "Run ruff"
+cmd = "ruff check --exclude template ."
+
+[tasks.coverage]
+help = "Open the latest coverage report in a web browser"
+cmd = "open tests/coverage/index.html"
+
+[tasks.ty]
+help = "Run ty for static type checking"
+cmd = "ty check"
+
+[tasks.lint]
+help = "Run all linting tasks"
+sequence = ["ruff", "ty"]
+
+[tasks.test]
+help = "Run tests with coverage"
+cmd = "pytest -vv --cov --cov-report=html:tests/coverage --cov-fail-under=90"
+args = [{ name = "paths", positional = true, multiple = true }]
+
+[tasks.qa]
+help = "Run linting and tests"
+sequence = ["lint", "test"]

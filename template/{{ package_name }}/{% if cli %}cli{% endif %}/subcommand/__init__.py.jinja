@@ -8,9 +8,7 @@ from {{ package_name }}.cli.subcommand.subsubcommand import subsubcommand
 def subcommand(
     ctx: click.Context,
 ) -> None:
-    """
-    This contains sub-subcommands
-    """
+    """This contains sub-subcommands"""
 
 
 subcommand.add_command(subsubcommand, name="subsub")

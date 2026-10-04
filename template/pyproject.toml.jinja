@@ -42,16 +42,17 @@ dev = [
     "commitizen>=3,<4",
     {%- endif %}
     "faker>=30,<31",
-    "mypy>=1,<2",
+    "poethepoet>=0.37,<1",
     "polyfactory>=2,<3",
     "pre-commit>=3,<4",
     "pytest>=8,<9",
     "pytest-cov>=5,<6",
     "pytest-datadir>=1,<2",
     "pytest-env>=1,<2",
-    "ruff>=0.5,<0.6",
-    "toml-sort>=0.24.2,<0.25",
+    "ruff>=0.14,<1",
     "safety>=3.2.9,<4",
+    "toml-sort>=0.24.2,<0.25",
+    "ty>=0.0.1",
 ]
 
 [tool.uv]
@@ -65,18 +66,11 @@ update_changelog_on_bump = true
 version_provider = "pep621"
 {%- endif %}
 
-[tool.mypy]  # https://mypy.readthedocs.io/en/latest/config_file.html
-exclude = []
-strict = true
-disallow_subclassing_any = false
-disallow_untyped_decorators = false
-check_untyped_defs = true
-ignore_missing_imports = true
-pretty = true
-show_column_numbers = true
-show_error_codes = true
-show_error_context = true
-warn_unreachable = true
+[tool.poe]
+include = [".poe.toml"]
+
+[tool.ty.environment]
+python-version = "{{ python_version }}"
 
 [tool.pytest.ini_options]  # https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref
 pythonpath = [

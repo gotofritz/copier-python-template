@@ -6,11 +6,13 @@ import pytest
 
 @pytest.fixture(scope="session")
 def root_path() -> str:
+    """Path to the template repository root."""
     return str(Path(__file__).parent.parent)
 
 
 @pytest.fixture(scope="session")
 def common_data() -> dict[str, str]:
+    """Answers shared by every generated test project."""
     return {
         "project_name": "test-project",
         "package_name": "test_project",

@@ -51,14 +51,14 @@ repos:
         stages: [commit-msg]
       - id: lint-fix
         name: lint-fix
-        entry: qa lint-fix
+        entry: poe lint-fix
         require_serial: true
         language: system
         pass_filenames: false
         types: [python]
       - id: typecheck
         name: typecheck
-        entry: qa mypy
+        entry: poe ty
         require_serial: true
         language: system
         pass_filenames: false

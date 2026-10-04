@@ -30,7 +30,7 @@ notebooks/
 # macOS
 .DS_Store
 
-# mypy
+# mypy (legacy)
 .dmypy.json
 .mypy_cache/
 

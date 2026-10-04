@@ -4,6 +4,7 @@ from copier import run_copy
 
 
 def test_defaults(root_path: str, tmp_path: Path, common_data: dict[str, str]) -> None:
+    """Generating with defaults yields the expected files and settings."""
     destination_path = tmp_path / "generated_project"
     run_copy(
         root_path,
@@ -48,8 +49,10 @@ def test_defaults(root_path: str, tmp_path: Path, common_data: dict[str, str]) -
     assert "update_changelog_on_bump = true" in content
     assert 'version_provider = "pep621"' in content
 
-    # Check that mypy strict settings are NOT present by default
-    assert "strict = true" in content
+    # Check that poe and ty are configured
+    assert "[tool.poe]" in content
+    assert "[tool.ty.environment]" in content
+    assert "mypy" not in content
 
     # Check that changelog URL IS present by default
     assert "changelog = " in content
@@ -63,6 +66,7 @@ def test_defaults(root_path: str, tmp_path: Path, common_data: dict[str, str]) -
 def test_without_conventional_commits(
     root_path: str, tmp_path: Path, common_data: dict[str, str]
 ) -> None:
+    """Disabling conventional commits drops commitizen config."""
     destination_path = tmp_path / "generated_project"
     data = {
         **common_data,
@@ -91,6 +95,7 @@ def test_without_conventional_commits(
 
 
 def test_with_cli(root_path: str, tmp_path: Path, common_data: dict[str, str]) -> None:
+    """Enabling the CLI generates the CLI package and scripts entry."""
     destination_path = tmp_path / "generated_project"
     data = {
         **common_data,

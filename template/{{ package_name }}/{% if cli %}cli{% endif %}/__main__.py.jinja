@@ -1,7 +1,6 @@
 # {{ project_name }}/cli/__main__.py
 
-"""
-CLI for the App.
+"""CLI for the App.
 
 for more info, run
 
@@ -27,9 +26,7 @@ console = Console()
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.pass_context
 def cli(ctx: click.Context) -> None:
-    """
-    Main entry point for the CLI.
-    """
+    """Main entry point for the CLI."""
     # Putting all objects in context so that they don't have to be
     # recreated for each command
     ctx.ensure_object(AppContext)

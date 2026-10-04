@@ -9,9 +9,9 @@
 ## 🎁 Features
 
 - 📦 **Modern Python packaging** using [UV](https://github.com/astral-sh/uv) for lightning-fast dependency management
-- ⚡️ **Streamlined task execution** with [Task](https://taskfile.dev/)
+- ⚡️ **Streamlined task execution** with [poethepoet](https://poethepoet.natn.io/)
 - ✍️ **Code formatting and linting** with [Ruff](https://github.com/charliermarsh/ruff)
-- 🔍 **Type checking** with [Mypy](https://github.com/python/mypy)
+- 🔍 **Type checking** with [ty](https://docs.astral.sh/ty/)
 - 🛡️ **Quality gates** with [Pre-commit](https://pre-commit.com/) hooks
 - 🏷️ **Automated versioning** following [Conventional Commits](https://www.conventionalcommits.org/) with [Commitizen](https://github.com/commitizen-tools/commitizen)
 - 📋 **Changelog generation** compatible with [Keep A Changelog](https://keepachangelog.com/)
@@ -61,13 +61,13 @@
 2. **Run the test suite:**
 
    ```sh
-   task test
+   poe test
    ```
 
 3. **Check code quality:**
 
    ```sh
-   task qa
+   poe qa
    ```
 
 ## 🖥️ CLI Usage
@@ -112,16 +112,16 @@ This project uses various tools for development. Here are the most common comman
 uv sync
 
 # Run tests with coverage
-task test
+poe test
 
 # open the code coverage in a web browser
-task coverage
+poe coverage
 
 # Format code with ruff
-task lint-fix
+poe lint-fix
 
 # Lint code
-task qa
+poe qa
 
 # Run pre-commit on all files
 uv run pre-commit run --all-files
@@ -178,7 +178,7 @@ Run the full test suite:
 
 ```sh
 # Run all tests
-task test
+poe test
 ```
 
 ## 📝 Contributing

@@ -1,13 +1,11 @@
 import logging
 import sys
-from typing import Optional
 
 
 def setup_logger(
-    *, app_name: str, log_level: str, bind_to: Optional[logging.Logger] = None
+    *, app_name: str, log_level: str, bind_to: logging.Logger | None = None
 ) -> logging.Logger:
-    """
-    Set up a logger with the specified application name and log level.
+    """Set up a logger with the specified application name and log level.
 
     Parameters
     ----------

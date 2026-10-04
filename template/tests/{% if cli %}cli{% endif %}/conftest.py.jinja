@@ -1,5 +1,5 @@
 import logging
-from typing import Generator
+from collections.abc import Generator
 from unittest.mock import Mock, patch
 
 import pytest
@@ -19,7 +19,7 @@ def mock_logger() -> logging.Logger:
 
 
 @pytest.fixture
-def cli_env(mock_logger: logging.Logger) -> Generator[None, None, None]:
+def cli_env(mock_logger: logging.Logger) -> Generator[None]:
     """Fixture that patches client creation and logger setup"""
     with patch("{{ package_name }}.app_context.setup_logger", return_value=mock_logger):
         yield
